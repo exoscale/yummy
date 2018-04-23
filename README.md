@@ -64,6 +64,6 @@ http://exoscale.github.io/yummy
 ## Installation
 
 ```clojure
-    [[exoscale/yummy "0.2.0"]]
+    [[exoscale/yummy "0.2.3"]]
 ```
 
