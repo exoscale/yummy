@@ -7,7 +7,6 @@
                       [lein-ancient "0.6.15"]]
   :codox             {:source-uri  "https://github.com/exoscale/yummy/blob/{version}/{filepath}#L{line}"
                       :output-path "target/docs"
-                      :namespaces  [#"^net"]
                       :metadata    {:doc/format :markdown}}
   :source-paths      ["src/clj"]
   :java-source-paths ["src/java"]
