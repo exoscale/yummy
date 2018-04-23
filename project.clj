@@ -1,4 +1,4 @@
-(defproject spootnik/yummy "0.2.2"
+(defproject exoscale/yummy "0.2.2"
   :description       "YAML configuration for Clojure application"
   :url               "https://github.com/exoscale/yummy"
   :license           {:name "MIT License"
