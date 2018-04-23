@@ -11,9 +11,8 @@
 
 (defn die!
   "Exit early"
-  [e msg]
-  (let [estr (cond-> msg
-               (some? e) (str ": " (.getMessage ^Exception e)))]
+  [^Exception e msg]
+  (let [estr (cond-> msg (some? e) (str ": " (.getMessage e)))]
     (binding [*out* *err*] (println estr))
     (System/exit 1)))
 
