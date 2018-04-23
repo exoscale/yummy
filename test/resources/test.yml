@@ -1,0 +1,8 @@
+a: !keyword b
+b: foo
+c:
+  b: there
+d:
+  - !keyword a
+  - !keyword b
+  - !keyword c
