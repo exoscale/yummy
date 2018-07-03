@@ -120,3 +120,10 @@
                           :die-fn return-exception})]
     (testing "loading configuration from a file"
       (is (= cfg {:a :b :b "foo" :c {:b "there"} :d [:a :b :c]})))))
+
+(deftest slurp-test
+  (let [cfg (load-config-string (format "a: !slurp %s" (path-for :token))
+                                load-opts)]
+    (testing "slurp loading"
+             (is (= {:a "hello"}
+                    cfg)))))

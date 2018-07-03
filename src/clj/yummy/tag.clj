@@ -1,7 +1,8 @@
 (ns yummy.tag
   "A dispatcher for custom tag decoders"
   (:require yummy.tag.envdir
-            yummy.tag.envvar))
+            yummy.tag.envvar
+            [clojure.string :refer [trim-newline]]))
 
 (defmulti decode
   "Transform a tagged bean into the wanted representation"
@@ -22,6 +23,10 @@
 (defmethod decode :keyword
   [{:keys [args]}]
   (keyword args))
+
+(defmethod decode :slurp
+  [{:keys [args]}]
+  (trim-newline (slurp args)))
 
 (defmethod decode :default
   [bean]
