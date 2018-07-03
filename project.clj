@@ -1,4 +1,4 @@
-(defproject exoscale/yummy "0.2.5-SNAPSHOT"
+(defproject exoscale/yummy "0.2.5"
   :description       "YAML configuration for Clojure application"
   :url               "https://github.com/exoscale/yummy"
   :license           {:name "MIT License"
@@ -12,6 +12,6 @@
   :java-source-paths ["src/java"]
   :dependencies      [[org.clojure/clojure "1.9.0"]
                       [org.yaml/snakeyaml  "1.21"]
-                      [expound             "0.5.0"]]
+                      [expound             "0.7.1"]]
   :profiles          {:dev {:resource-paths ["test/resources"]}}
   :global-vars       {*warn-on-reflection* true})
