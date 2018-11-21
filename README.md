@@ -47,6 +47,7 @@ custom tag parsers, namely:
 - `keyword`: coerce a string to a keyword
 - `envfmt`: produce a string from a format string and environment variables to pull in
 - `slurp`: produce a string from the given file content
+- `uuid`: produce a UUID from the given string
 
 ## Example
 
@@ -57,6 +58,7 @@ c: !envvar [NOPE, hello]
 d: !envdir /tmp/foo
 e: !envfmt ["user=%s, home=%s", USER, HOME]
 f: !slurp "/etc/hostname"
+g: !uuid fc716a9b-fb1e-4ebd-b781-5ca13039aa55
 ```
 
 ## Documentation
@@ -66,6 +68,6 @@ http://exoscale.github.io/yummy
 ## Installation
 
 ```clojure
-    [[exoscale/yummy "0.2.5"]]
+    [[exoscale/yummy "0.2.6"]]
 ```
 

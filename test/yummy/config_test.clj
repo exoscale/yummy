@@ -3,7 +3,8 @@
             [clojure.spec.alpha :as spec]
             [clojure.java.io    :as io]
             [yummy.config       :refer :all]
-            [clojure.test       :refer :all]))
+            [clojure.test       :refer :all])
+  (:import java.util.UUID))
 
 (defn return-exception
   [e msg]
@@ -39,6 +40,13 @@
    "f: !envvar [HOME, hello]"
    "g: !envvar [NOPE]"
    "h: !envvar [HOME]"])
+
+(def uuid-input
+  "Input for UUID lookups"
+  ["a: !uuid fc716a9b-fb1e-4ebd-b781-5ca13039aa55"
+   "b: !uuid bad50b96-ed73-11e8-869d-9cb6d0e6ac17"
+   "c: !uuid f3548089-8c02-3383-a02f-a54826cfa006"
+   "d: !uuid 842e31d4-e8d5-52ee-aa36-10e0428eba31"])
 
 (def spec-input
   "Input for spec checks"
@@ -87,6 +95,18 @@
       (is (= home (:f cfg)))
       (is (nil? (:g cfg)))
       (is (= home (:h cfg))))))
+
+(deftest uuid-test
+  (let [cfg (load-config-string (make-input uuid-input) load-opts)]
+    (testing "UUIDs"
+      (is 4
+          (.version ^UUID (:a cfg)))
+      (is 1
+          (.version ^UUID (:b cfg)))
+      (is 3
+          (.version ^UUID (:c cfg)))
+      (is 5
+          (.version ^UUID (:d cfg))))))
 
 (deftest envfmt-test
   (let [cfg (load-config-string "a: !envfmt ['user=%s, home=%s', USER, HOME]")]
