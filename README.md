@@ -2,6 +2,7 @@ yummy: YAML configuration for Clojure application
 =================================================
 
 [![Build Status](https://secure.travis-ci.org/exoscale/yummy.png)](http://travis-ci.org/exoscale/yummy)
+[![Clojars Project](https://img.shields.io/clojars/v/exoscale/yummy.svg)](https://clojars.org/exoscale/yummy)
 
 Yummy allows reading in configuration from YAML files and
 provides optional facilities for:
