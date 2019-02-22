@@ -54,8 +54,8 @@
     (catch Exception e
       (*die-fn* e "cannot parse YAML configuration file"))))
 
-(defn validate
-  "Validate configuration against aspec or die with a helpful message"
+(defn conform
+  "Conform configuration with a spec or die with a helpful message"
   [v spec]
   (try
     (let [result (spec/conform spec v)]
@@ -74,7 +74,7 @@
    spec is honored. An optional `die-fn` can be provided to report errors"
   ([input {:keys [spec die-fn]}]
    (binding [*die-fn* (or die-fn *die-fn* die!)]
-     (cond-> (safe-parse input) (some? spec) (validate spec))))
+     (cond-> (safe-parse input) (some? spec) (conform spec))))
   ([input]
    (load-config-string input {})))
 

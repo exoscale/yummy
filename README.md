@@ -8,7 +8,7 @@ Yummy allows reading in configuration from YAML files and
 provides optional facilities for:
 
 - Environment based configuration
-- Validation through `clojure.spec`
+- Validation and conforming through `clojure.spec`
 
 Yummy only provides YAML parsing, no generation facilities are present.
 
@@ -20,6 +20,10 @@ Auto determined configuration file paths:
 (spec/def ::config (spec/keys :req-un [::http ::logging ::database]))
 (yummy.config/load-config {:program-name :mydaemon :spec ::config})
 ```
+
+A spec might consist of conformers that coerce values while validating them. It
+gives you a chance to coerce basic YAML types to complex ones, e.g. parse a date
+from a string.
 
 Yummy will look for a configuration-file path in the
 `mydaemon.configuration` system property or the
@@ -71,4 +75,3 @@ http://exoscale.github.io/yummy
 ```clojure
     [[exoscale/yummy "0.2.6"]]
 ```
-
