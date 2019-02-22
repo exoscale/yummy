@@ -7,8 +7,6 @@
 
 (def ^:dynamic *die-fn* nil)
 
-(spec/check-asserts true)
-
 (defn die!
   "Exit early"
   [^Exception e msg]
@@ -60,8 +58,14 @@
   "Validate configuration against aspec or die with a helpful message"
   [v spec]
   (try
-    (binding [spec/*explain-out* spec-printer]
-      (spec/assert spec v))
+    (let [result (spec/conform spec v)]
+      (if (identical? result ::spec/invalid)
+        (let [data (spec/explain-data spec v)
+              data (assoc data ::spec/failure :assertion-failed)
+              message (with-out-str
+                        (spec-printer data))]
+          (throw (ex-info message data)))
+        result))
     (catch Exception e
       (*die-fn* e "validation"))))
 

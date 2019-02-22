@@ -147,3 +147,68 @@
     (testing "slurp loading"
              (is (= {:a "hello"}
                     cfg)))))
+
+
+(def conform-input-ok
+  ["date-year: '2019'"
+   "date-date: '2019-12-31'"
+   "date-full: '2019-12-31T11:59:59'"])
+
+(def conform-input-err
+  ["date-year: 'cannot parse this'"
+   "date-date: '2019-12-31'"
+   "date-full: '2019-12-31T11:59:59'"])
+
+
+(defn wrap-invalid
+  [f]
+  (fn [& args]
+    (try
+      (apply f args)
+      (catch Exception e
+        ::spec/invalid))))
+
+
+(spec/def ::inst
+  (-> clojure.instant/read-instant-date
+      wrap-invalid
+      spec/conformer))
+
+
+(spec/def ::date-year ::inst)
+(spec/def ::date-date ::inst)
+(spec/def ::date-full ::inst)
+
+(spec/def ::spec-conform
+  (spec/keys :req-un [::date-year
+                      ::date-date
+                      ::date-full]))
+
+
+(deftest conform-test-ok
+  (let [cfg (load-config-string
+             (make-input conform-input-ok)
+             (merge
+              load-opts
+              {:spec ::spec-conform}))]
+
+    (is (= cfg
+           {:date-year #inst "2019-01-01T00:00:00",
+            :date-date #inst "2019-12-31T00:00:00",
+            :date-full #inst "2019-12-31T11:59:59"}))))
+
+
+(deftest conform-test-err
+
+  (let [e (load-config-string
+           (make-input conform-input-err)
+           (merge
+            load-opts
+            {:spec ::spec-conform}))
+
+        {:keys [cause]} (ex-data e)
+        data (ex-data cause)
+
+        field (-> data ::spec/problems first :path first)]
+
+    (is (= field :date-year))))
