@@ -61,7 +61,6 @@
     (let [result (spec/conform spec v)]
       (if (identical? result ::spec/invalid)
         (let [data (spec/explain-data spec v)
-              data (assoc data ::spec/failure :assertion-failed)
               message (with-out-str
                         (spec-printer data))]
           (throw (ex-info message data)))
