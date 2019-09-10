@@ -14,5 +14,6 @@
                       [org.yaml/snakeyaml  "1.25"]
                       [expound             "0.7.2"]]
   :profiles          {:dev {:resource-paths ["test/resources"]}}
+  :deploy-repositories [["snapshots" :clojars] ["releases" :clojars]]
   :global-vars       {*warn-on-reflection* true}
   :pedantic? :warn)
