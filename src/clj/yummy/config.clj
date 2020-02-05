@@ -3,6 +3,7 @@
   (:require [clojure.spec.alpha :as spec]
             [clojure.string     :as string]
             [yummy.parser       :as parser]
+            [clojure.pprint     :as pprint]
             [expound.alpha      :as expound]))
 
 (def ^:dynamic *die-fn* nil)
@@ -12,8 +13,12 @@
 (defn die!
   "Exit early"
   [^Exception e msg]
-  (let [estr (cond-> msg (some? e) (str ": " (.getMessage e)))]
-    (binding [*out* *err*] (println estr))
+  (let [estr (cond-> msg
+               (some? e)
+               (str ": " (ex-message e)))]
+    (binding [*out* *err*]
+      (println estr)
+      (some-> e Throwable->map pprint/pprint))
     (System/exit 1)))
 
 (defn configuration-property
