@@ -3,7 +3,8 @@
             [clojure.spec.alpha :as spec]
             [clojure.java.io    :as io]
             [yummy.config       :refer :all]
-            [clojure.test       :refer :all])
+            [clojure.test       :refer :all]
+            [exoscale.cloak     :as cloak])
   (:import java.util.UUID))
 
 (defn return-exception
@@ -145,5 +146,12 @@
   (let [cfg (load-config-string (format "a: !slurp %s" (path-for :token))
                                 load-opts)]
     (testing "slurp loading"
-             (is (= {:a "hello"}
-                    cfg)))))
+      (is (= {:a "hello"}
+             cfg)))))
+
+(deftest secret-test
+  (let [launch-code "boom"
+        cfg (load-config-string (format "a: !secret %s" launch-code)
+                                load-opts)]
+    (testing "secret hidding"
+      (is (= launch-code (-> cfg :a deref))))))

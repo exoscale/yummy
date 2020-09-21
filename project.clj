@@ -12,6 +12,7 @@
   :java-source-paths ["src/java"]
   :dependencies      [[org.clojure/clojure "1.10.1"]
                       [org.yaml/snakeyaml  "1.25"]
+                      [exoscale/cloak "0.1.1"]
                       [expound             "0.7.2"]]
   :profiles          {:dev {:resource-paths ["test/resources"]}}
   :deploy-repositories [["snapshots" :clojars] ["releases" :clojars]]

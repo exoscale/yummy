@@ -5,7 +5,8 @@
            org.yaml.snakeyaml.DumperOptions
            yummy.YummyConstructor))
 
-(def ^:dynamic *tags* "registered parsers" [:envdir :envvar :keyword :envfmt :slurp :uuid])
+(def ^:dynamic *tags* "registered parsers" [:envdir :envvar :keyword :envfmt
+                                            :slurp :uuid :secret])
 
 (defprotocol Decoder
   (decode [data] "Post unmarshalling step to coerce to idiomatic clojure"))
