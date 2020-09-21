@@ -2,7 +2,8 @@
   "A dispatcher for custom tag decoders"
   (:require yummy.tag.envdir
             yummy.tag.envvar
-            [clojure.string :refer [trim-newline]])
+            [clojure.string :as str]
+            [exoscale.cloak :as cloak])
   (:import java.util.UUID))
 
 (defmulti decode
@@ -27,12 +28,15 @@
 
 (defmethod decode :slurp
   [{:keys [args]}]
-  (trim-newline (slurp args)))
+  (str/trim-newline (slurp args)))
 
 (defmethod decode :uuid
   [{:keys [args]}]
   (UUID/fromString args))
 
+(defmethod decode :secret
+  [{:keys [args]}]
+  (cloak/mask args))
 
 (defmethod decode :default
   [bean]
