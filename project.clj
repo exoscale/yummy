@@ -1,4 +1,4 @@
-(defproject exoscale/yummy "0.2.10"
+(defproject exoscale/yummy "0.2.11-SNAPSHOT"
   :description       "YAML configuration for Clojure application"
   :url               "https://github.com/exoscale/yummy"
   :license           {:name "MIT License"
