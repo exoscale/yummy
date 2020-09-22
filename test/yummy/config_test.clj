@@ -150,8 +150,13 @@
              cfg)))))
 
 (deftest secret-test
-  (let [launch-code "boom"
-        cfg (load-config-string (format "a: !secret %s" launch-code)
-                                load-opts)]
-    (testing "secret hidding"
-      (is (= launch-code (-> cfg :a deref))))))
+  (testing "secret hidding"
+    (let [launch-code "boom"
+          cfg (load-config-string (format "a: !secret %s" launch-code)
+                                  load-opts)]
+      (is (= launch-code (-> cfg :a deref))))
+
+    (testing "secret hidding from envvar, nesting is hard"
+      (let [cfg (load-config-string (format "a: !envsecret USER")
+                                    load-opts)]
+        (is (= (System/getenv "USER") (-> cfg :a deref)))))))
