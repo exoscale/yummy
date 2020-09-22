@@ -38,6 +38,10 @@
   [{:keys [args]}]
   (cloak/mask args))
 
+(defmethod decode :envsecret
+  [opts]
+  (cloak/mask (yummy.tag.envvar/get-envvar opts)))
+
 (defmethod decode :default
   [bean]
   bean)
