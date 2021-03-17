@@ -8,6 +8,7 @@
   :codox             {:source-uri  "https://github.com/exoscale/yummy/blob/{version}/{filepath}#L{line}"
                       :output-path "target/docs"
                       :metadata    {:doc/format :markdown}}
+  :javac-options     ["-target" "1.8" "-source" "1.8"]
   :source-paths      ["src/clj"]
   :java-source-paths ["src/java"]
   :dependencies      [[org.clojure/clojure "1.10.1"]
