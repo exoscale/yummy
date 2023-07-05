@@ -1,5 +1,6 @@
 package yummy;
 
+import org.yaml.snakeyaml.LoaderOptions;
 import org.yaml.snakeyaml.constructor.AbstractConstruct;
 import org.yaml.snakeyaml.constructor.Construct;
 import org.yaml.snakeyaml.constructor.SafeConstructor;
@@ -19,6 +20,9 @@ import java.util.List;
 
 
 public class YummyConstructor extends SafeConstructor {
+    public YummyConstructor() {
+        super(new LoaderOptions());
+    }
 
     public void registerTag(String shortname) {
         final String tag = "!" + shortname;

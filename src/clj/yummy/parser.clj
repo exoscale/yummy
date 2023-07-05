@@ -19,8 +19,8 @@
      (doseq [tag *tags*]
        (.registerTag ctor (name tag)))
      ctor)
-   (org.yaml.snakeyaml.representer.Representer.)
-   (org.yaml.snakeyaml.DumperOptions.)))
+   (org.yaml.snakeyaml.representer.Representer.
+    (org.yaml.snakeyaml.DumperOptions.))))
 
 (defn augment-bean
   "Transform a yummy TagHolder to a good data representation"
